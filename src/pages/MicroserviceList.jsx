@@ -1,45 +1,47 @@
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import getMicroList from "../utils";
-import { useState, React } from "react";
+import { useState, useEffect, React } from "react";
 import { Link } from "react-router-dom";
+import MicroListItem from "../components/MicroListItem";
+import Badge from "react-bootstrap/Badge";
+import axios from "axios";
 
-const MicroserviceList = () => {
+const MicroserviceList = (props) => {
   // on render call getMicroList, and pass the data into the list component. call this at a higher level and pass into this component? component did mount for instantly setting state?
   // context api for state
   const [serviceList, setServiceList] = useState({});
 
   let data = {};
-  const url = "http://localhost:3001/";
+  const url = "http://localhost:3001/fullmenu";
 
-  const getMicroList = async () => {
-    const response = await fetch(url, {
-      method: "GET",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-    });
-    // data = await response.json();
-    // console.log(data);
-    setServiceList(await response.json());
-  };
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => {
+        setServiceList(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
-  // console.log(serviceList);
+  console.log(serviceList.menu);
 
-  return (
-    <div className="col-sm-2">
-      <Button
-        variant="outline-warning"
-        onClick={() => {
-          getMicroList();
-        }}
-      >
-        Warning
-      </Button>
-      <h3>Micro service List and many other things that will go here</h3>
-      <Button variant="outline-secondary">
-        <Link to="edit">edit</Link>
-      </Button>
+  return serviceList.menu ? (
+    <div className="container">
+      <h3>Microservice List</h3>
+      {serviceList.menu.map((entry, index) => (
+        <div key={index}>
+          <MicroListItem entry={entry} index={index} />
+        </div>
+      ))}
+      <div>
+        <Badge bg="primary">+Add</Badge>
+      </div>
     </div>
+  ) : (
+    <h4> </h4>
   );
 };
 

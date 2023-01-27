@@ -4,7 +4,7 @@ import EditPage from "./pages/EditPage";
 import MicroserviceList from "./pages/MicroserviceList";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function Root(props) {
+export default function Root() {
   //react router here -> rendering top level components/pages based on nav app
   return (
     <BrowserRouter>
@@ -15,14 +15,5 @@ export default function Root(props) {
         </Route>
       </Routes>
     </BrowserRouter>
-    // <div className="container">
-    //   <section>{props.name} is mounted!</section>
-    //   <div className="col-sm-4">
-    //     <MicroserviceList />
-    //   </div>
-    //   <div className="col-sm-4">
-    //     <FieldEditor />
-    //   </div>
-    // </div>
   );
 }
