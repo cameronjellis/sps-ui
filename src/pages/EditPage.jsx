@@ -13,6 +13,7 @@ const EditPage = (props) => {
   // fields to edit ~ name, url, display, icon, importName, importLocation, parentApplication(id), routes[], parcels[]
 
   const [serviceDTO, setServiceDTO] = useState({
+    id: "",
     name: "",
     url: "",
     display: false,
@@ -86,6 +87,10 @@ const EditPage = (props) => {
 
         <Button className="m-3" variant="outline-warning" type="cancel">
           Cancel
+        </Button>
+
+        <Button className="m-3" variant="outline-danger" type="cancel">
+          Delete
         </Button>
       </Form>
       {/* <Form>
