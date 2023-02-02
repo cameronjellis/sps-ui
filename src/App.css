@@ -1,3 +1,24 @@
-.microList {
-    border: 10px orangered;
+.badge {
+  margin: 5px;
+}
+
+#micro {
+  display: flex;
+  border: 2px solid rgb(61, 200, 255);
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  margin: 6px;
+  border-radius: 8px;
+}
+
+.micro-form {
+  margin: 10px;
+  border: 2px solid rgb(61, 200, 255);
+  border-radius: 8px;
+  padding: 10px
+}
+
+#edit-badge {
+  display: flex;
 }

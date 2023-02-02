@@ -1,5 +1,7 @@
+require("dotenv").config();
+
 let data = {};
-const url = "http://localhost:3001/";
+// const url = "http://localhost:3001/";
 
 const getMicroList = async () => {
   const response = await fetch(url, {
