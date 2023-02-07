@@ -1,61 +1,44 @@
 import { React, useState } from "react";
 import { FormControl } from "react-bootstrap";
-import { useHref, useLocation } from "react-router-dom";
+import { useNavigate, useHref, useLocation } from "react-router-dom";
 import MicroListItem from "../components/MicroListItem";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import DeleteModal from "../components/DeleteModal";
 import axios from "axios";
-require("dotenv").config();
+// require("dotenv").config();
+// BASE_URL="http://localhost:3001/"
+// GET_URL="http://localhost:3001/fullmenu"
+// SEND_URL="http://localhost:3001/api/microservice"
+// # /service/get maybe enum?
 
-const EditPage = (props) => {
+const EditPage = () => {
+  let navigate = useNavigate();
   const location = useLocation();
-
+  const url = "http://localhost:3001/api/microservice";
   const [fields, setFields] = useState(location.state.props.entry);
-
   const [modalShow, setModalShow] = useState(false);
 
-  const handleSubmit = () => {
-    console.log(fields);
-
-    const url = "http://localhost:3001/api/microservice";
-
-    if (fields.id === "") {
-      console.log("add new");
-      axios
-        .post(url + "/add", {
-          ...fields,
-        })
-        .then((response) => {
-          console.log(response);
-          props.onHide();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      console.log("update");
-      axios
-        .post(url + "/add", {
-          ...fields,
-        })
-        .then((response) => {
-          console.log(response);
-          props.onHide();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
   };
-
-  const handleDelete = () => {
-    serviceDTO.id = fields.id;
-    console.log("delete  " + serviceDTO.id);
+  const handleSubmit = () => {
+    axios
+      .post(url + "/add", {
+        ...fields,
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          navigate("/micromanager");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleCancel = () => {
-    useHref();
+    navigate("/micromanager");
   };
 
   const handleChange = (e) => {

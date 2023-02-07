@@ -1,5 +1,14 @@
-.badge {
+.badge-link {
   margin: 5px;
+  background-color: rgb(26, 126, 64);
+}
+
+.links {
+  font-size: 15px;
+}
+
+* {
+  color: whitesmoke;
 }
 
 #micro {
@@ -16,7 +25,12 @@
   margin: 10px;
   border: 2px solid rgb(61, 200, 255);
   border-radius: 8px;
-  padding: 10px
+  padding: 10px;
+}
+
+.micro-list {
+  margin: 10px;
+  padding: 10px;
 }
 
 #edit-badge {

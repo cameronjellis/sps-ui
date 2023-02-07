@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import MicroListItem from "../components/MicroListItem";
 import Badge from "react-bootstrap/Badge";
 import axios from "axios";
-require("dotenv").config();
+// require("dotenv").config();
 
 const MicroserviceList = (props) => {
   // on render call getMicroList, and pass the data into the list component. call this at a higher level and pass into this component? component did mount for instantly setting state?
+  // if 200 render MicroserviceList else render 404 page?
   // context api for state
   // .env file for urls
   // move axios calls to util file?
@@ -17,15 +18,17 @@ const MicroserviceList = (props) => {
 
   let data = {};
   const url = "http://localhost:3001/fullmenu";
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     axios
-      .get(process.env.GET_URL)
+      .get(url)
       .then((res) => {
         setServiceList(res.data);
       })
       .catch((err) => {
         console.error(err);
+        setError(true);
       });
   }, []);
 
@@ -42,10 +45,8 @@ const MicroserviceList = (props) => {
     parcels: [],
   };
 
-  console.log(serviceList.menu);
-
   return serviceList.menu ? (
-    <div className="container col-sm-7">
+    <div className="container col-sm-7 micro-list">
       <h3 className="p-2">Microservice List</h3>
       {serviceList.menu.map((entry, index) => (
         <div key={index}>
@@ -53,11 +54,20 @@ const MicroserviceList = (props) => {
         </div>
       ))}
       <div>
-        <Link to="edit" state={{ props: { entry: serviceDTO } }}>
-          +Add
-        </Link>
+        <Badge bg="" className="badge-link">
+          <Link
+            className="links"
+            to="edit"
+            style={{ textDecoration: "none", color: "whitesmoke" }}
+            state={{ props: { entry: serviceDTO } }}
+          >
+            +Add
+          </Link>
+        </Badge>
       </div>
     </div>
+  ) : error ? (
+    <h4> Whoops... Something went wrong...</h4>
   ) : (
     <h4> </h4>
   );

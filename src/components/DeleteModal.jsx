@@ -1,34 +1,26 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const DeleteModal = (props) => {
   const url = "http://localhost:3001/api/microservice";
-  // const deleteService = (id) => {
-  //   axios
-  //     .get(url + `/delete:${id}`)
-  //     .then((res) => {
-  //       setServiceList(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  //   console.log(id);
-  // };
-
+  let navigate = useNavigate();
   const handleDelete = (id) => {
-    console.log(id);
     axios
       .get(url + `/delete/${id}`)
-      .then((res) => {
-        props.onHide();
+      .then((response) => {
+        if (response.status === 200) {
+          props.onHide();
+          navigate("/micromanager");
+        }
       })
       .catch((err) => {
         console.error(err);
       });
   };
 
-  console.log(props.fields.id);
   return (
     <Modal
       {...props}

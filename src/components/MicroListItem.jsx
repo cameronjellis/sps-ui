@@ -6,21 +6,21 @@ import { Link } from "react-router-dom";
 import EditPage from "../pages/EditPage";
 
 const MicroListItem = (props) => {
-    // would cards look better than a list...?
+  // would cards look better than a list...?
   return (
-    <Container className="m-2" id="micro">
+    <Container className="m-2 micro-item" id="micro">
       <div>
         {props.entry.name} {props.entry.importName}
       </div>
       <div id="edit-badge">
-        <Badge bg="secondary">
-          <Link to="edit" state={{ props: props }}>
-            edit
-          </Link>
-        </Badge>
-        <Badge className="badge" bg="secondary">
-          <Link to="edit" state={{ props: props }}>
-            edit
+        <Badge bg="" className="badge-link">
+          <Link
+            className="links"
+            to="edit"
+            style={{ textDecoration: "none", color: "whitesmoke" }}
+            state={{ props: props }}
+          >
+            Edit
           </Link>
         </Badge>
       </div>
